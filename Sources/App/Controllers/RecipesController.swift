@@ -8,6 +8,7 @@ final class RecipesController: RouteCollection {
         recipesRoutes.get(UUID.parameter, use: find)
         recipesRoutes.post( use: create)
         recipesRoutes.put(UUID.parameter, use: update)
+        recipesRoutes.delete(UUID.parameter, use: delete)
     }
     
     func index(_ req: Request) throws -> Future<[Recipe]> {
@@ -53,6 +54,17 @@ final class RecipesController: RouteCollection {
             try updater.update(id: id, title: recipeTitle)
             
         }
+        return HTTPStatus.ok
+    }
+    
+    func delete(_ req: Request) throws -> HTTPStatus {
+        let id = try req.parameters.next(UUID.self)
+        
+        let repository = try req.make(RecipeRepository.self)
+        let deleter = RecipeDeleter(repository)
+        
+        try deleter.delete(id: id)
+        
         return HTTPStatus.ok
     }
 }

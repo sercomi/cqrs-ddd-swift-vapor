@@ -5,4 +5,5 @@ protocol RecipeRepository {
     func create(_ recipe: Recipe)
     func find(id: RecipeId) -> Future<Recipe?>
     func save(_ recipe: Recipe)
+    func delete(_ recipe: Recipe)
 }
