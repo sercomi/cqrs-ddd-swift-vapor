@@ -32,12 +32,6 @@ final class RecipeRepositorySQLite: RecipeRepository {
             return recipe.save(on: conn)
         }
     }
-    
-    func delete(_ recipe: Recipe) {
-        _ = db.withConnection { conn in
-            return recipe.delete(on: conn)
-        }
-    }
 }
 
 extension RecipeRepositorySQLite: ServiceType {
